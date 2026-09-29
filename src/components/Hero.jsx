@@ -10,7 +10,7 @@ function Hero() {
       {/* ================= BACKGROUND ================= */}
       <div className="absolute inset-0">
         <img
-          src="/hero-aari.png"
+          src={`${import.meta.env.BASE_URL}hero-aari.png`}
           alt="Beautiful Aari embroidery work"
           className="
             h-full

@@ -14,7 +14,7 @@ function About() {
         >
           <div className="overflow-hidden rounded-3xl">
             <img
-              src="/aarii-logo.png"
+              src={`${import.meta.env.BASE_URL}aarii-logo.png`}
               alt="Aari Work"
               className="h-[500px] w-full object-cover"
             />

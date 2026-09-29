@@ -24,7 +24,7 @@ function Navbar() {
             {/* ================= LOGO ================= */}
             <a href="/" onClick={handleLinkClick} className="flex items-center">
               <img
-                src="/aari-logo.png"
+                src={`${import.meta.env.BASE_URL}aari-logo.png`}
                 alt="Vino Aari Works"
                 className="h-14 w-auto object-contain"
               />
