@@ -5,52 +5,123 @@ function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden bg-[#1c1510]"
+      className="
+        relative
+        min-h-[760px]
+        w-full
+        overflow-hidden
+        bg-[#1c1510]
+        sm:min-h-[700px]
+        lg:min-h-[760px]
+      "
     >
-      {/* ================= BACKGROUND ================= */}
-      <div className="absolute inset-0">
-        <img
-          src={`${import.meta.env.BASE_URL}hero-aari.png`}
-          alt="Beautiful Aari embroidery work"
-          className="
-            h-full
-            w-full
-            object-cover
-            object-[35%_center]
-            sm:object-center
-          "
-        />
+      {/* =====================================================
+          BACKGROUND IMAGES
+      ===================================================== */}
+      <div className="absolute inset-0 h-full w-full">
+        <picture className="block h-full w-full">
+          {/* Mobile Image */}
+          <source
+            media="(max-width: 639px)"
+            srcSet={`${import.meta.env.BASE_URL}bridal-hero-mobile.png`}
+          />
 
-        {/* Main Overlay */}
+          {/* Desktop Image */}
+          <img
+            src={`${import.meta.env.BASE_URL}hero-aari.png`}
+            alt="Beautiful handcrafted bridal Aari work"
+            className="
+              h-full
+              w-full
+              object-cover
+              object-[35%_center]
+              sm:object-center
+            "
+          />
+        </picture>
+
+        {/* =================================================
+            DESKTOP OVERLAY
+        ================================================= */}
         <div
           className="
-            absolute inset-0
+            absolute
+            inset-0
             bg-gradient-to-r
-            from-black/70
-            via-black/40
+            from-black/65
+            via-black/35
             to-black/10
-            sm:from-black/65
-            sm:via-black/35
-            sm:to-transparent
+            sm:from-black/70
+            sm:via-black/40
+            sm:to-black/5
           "
         />
 
-        {/* Mobile Bottom Gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/50 to-transparent sm:hidden" />
+        {/* =================================================
+            MOBILE OVERLAY
+        ================================================= */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-b
+            from-black/55
+            via-black/15
+            to-black/65
+            sm:hidden
+          "
+        />
+
+        {/* Extra left darkness for text */}
+        <div
+          className="
+            absolute
+            inset-y-0
+            left-0
+            hidden
+            w-[65%]
+            bg-gradient-to-r
+            from-black/45
+            to-transparent
+            sm:block
+          "
+        />
+
+        {/* Bottom gradient */}
+        <div
+          className="
+            absolute
+            inset-x-0
+            bottom-0
+            h-56
+            bg-gradient-to-t
+            from-black/60
+            to-transparent
+            sm:h-48
+          "
+        />
       </div>
 
-      {/* ================= CONTENT ================= */}
+      {/* =====================================================
+          CONTENT
+      ===================================================== */}
       <div
         className="
-          relative z-10
+          relative
+          z-10
           mx-auto
-          flex min-h-screen
+          flex
+          min-h-[760px]
+          w-full
           max-w-7xl
           items-center
           px-5
-          py-28
+          pb-24
+          pt-32
+          sm:min-h-[700px]
           sm:px-6
           sm:py-24
+          lg:min-h-[760px]
           lg:px-8
         "
       >
@@ -61,9 +132,17 @@ function Hero() {
             duration: 0.8,
             ease: "easeOut",
           }}
-          className="w-full max-w-3xl text-white"
+          className="
+            w-full
+            max-w-3xl
+            text-white
+            sm:max-w-2xl
+            lg:max-w-3xl
+          "
         >
-          {/* ================= BADGE ================= */}
+          {/* =================================================
+              BADGE
+          ================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,12 +153,14 @@ function Hero() {
             className="
               mb-5
               inline-flex
+              max-w-full
               items-center
               gap-2
               rounded-full
-              border border-[#d4af37]/50
-              bg-black/25
-              px-3.5
+              border
+              border-[#d4af37]/50
+              bg-black/30
+              px-3
               py-2
               backdrop-blur-md
               sm:mb-6
@@ -88,23 +169,32 @@ function Hero() {
           >
             <Sparkles
               size={15}
-              className="shrink-0 text-[#d4af37] sm:h-4 sm:w-4"
+              className="
+                shrink-0
+                text-[#d4af37]
+                sm:h-4
+                sm:w-4
+              "
             />
 
             <span
               className="
-                text-[10px]
+                text-[9px]
                 font-semibold
-                tracking-[0.15em]
-                sm:text-sm
+                uppercase
+                tracking-[0.13em]
+                text-white
+                sm:text-xs
                 sm:tracking-[0.18em]
               "
             >
-              HANDCRAFTED AARI WORK
+              Handcrafted Aari Work
             </span>
           </motion.div>
 
-          {/* ================= HEADING ================= */}
+          {/* =================================================
+              HEADING
+          ================================================= */}
           <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,22 +203,34 @@ function Hero() {
               duration: 0.7,
             }}
             className="
-              text-[2.7rem]
+              max-w-[340px]
+              text-[2.65rem]
               font-bold
-              leading-[1.05]
+              leading-[1.02]
               tracking-tight
+              drop-shadow-lg
+              sm:max-w-none
               sm:text-6xl
               sm:leading-[1.08]
               lg:text-7xl
             "
           >
             Elegance
-            <span className="mt-1 block text-[#d4af37] sm:mt-0">
+            <span
+              className="
+                mt-1
+                block
+                text-[#d4af37]
+                sm:mt-0
+              "
+            >
               in Every Stitch
             </span>
           </motion.h1>
 
-          {/* ================= DESCRIPTION ================= */}
+          {/* =================================================
+              DESCRIPTION
+          ================================================= */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -138,11 +240,13 @@ function Hero() {
             }}
             className="
               mt-5
-              max-w-xl
+              max-w-[340px]
               text-sm
               leading-6
               text-white/90
+              drop-shadow
               sm:mt-6
+              sm:max-w-xl
               sm:text-lg
               sm:leading-8
             "
@@ -151,7 +255,9 @@ function Hero() {
             favourite design created specially for your blouse.
           </motion.p>
 
-          {/* ================= FEATURES ================= */}
+          {/* =================================================
+              FEATURES
+          ================================================= */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -162,12 +268,14 @@ function Hero() {
             className="
               mt-6
               flex
+              max-w-[350px]
               flex-wrap
-              gap-x-5
+              gap-x-4
               gap-y-2.5
               text-xs
-              text-white/90
+              text-white/95
               sm:mt-7
+              sm:max-w-none
               sm:gap-x-6
               sm:gap-y-3
               sm:text-sm
@@ -180,7 +288,9 @@ function Hero() {
             <span className="whitespace-nowrap">✦ Bridal Collection</span>
           </motion.div>
 
-          {/* ================= BUTTONS ================= */}
+          {/* =================================================
+              BUTTONS
+          ================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -192,10 +302,11 @@ function Hero() {
               mt-8
               flex
               w-full
+              max-w-[350px]
               flex-col
               gap-3
               sm:mt-9
-              sm:w-auto
+              sm:max-w-none
               sm:flex-row
               sm:gap-4
             "
@@ -217,7 +328,7 @@ function Hero() {
                 font-semibold
                 text-[#2b2118]
                 shadow-lg
-                shadow-black/20
+                shadow-black/25
                 transition-all
                 duration-300
                 hover:bg-[#e5c45a]
@@ -252,7 +363,7 @@ function Hero() {
                 text-sm
                 font-semibold
                 text-white
-                backdrop-blur-sm
+                backdrop-blur-md
                 transition-all
                 duration-300
                 hover:bg-white
@@ -270,7 +381,9 @@ function Hero() {
         </motion.div>
       </div>
 
-      {/* ================= SCROLL INDICATOR ================= */}
+      {/* =====================================================
+          SCROLL INDICATOR
+      ===================================================== */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
