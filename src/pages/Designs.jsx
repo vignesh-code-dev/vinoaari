@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import designs from "../data/designs";
+import SimpleDesigns from "../data/simple";
 
 const categories = [
   "All",
@@ -23,11 +24,14 @@ const categories = [
 function Designs() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 12;
 
   const filteredDesigns = useMemo(() => {
     const searchValue = search.trim().toLowerCase();
 
-    return designs.filter((design) => {
+    return [...designs, ...SimpleDesigns].filter((design) => {
       const categoryMatch =
         activeCategory === "All" || design.category === activeCategory;
 
@@ -41,8 +45,18 @@ function Designs() {
     });
   }, [activeCategory, search]);
 
+  const totalPages = Math.ceil(filteredDesigns.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+
+  const paginatedDesigns = filteredDesigns.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
+
   const clearSearch = () => {
     setSearch("");
+    setCurrentPage(1);
   };
 
   return (
@@ -103,7 +117,10 @@ function Designs() {
                 <input
                   type="text"
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    setCurrentPage(1);
+                  }}
                   placeholder="Search designs..."
                   className="w-full rounded-xl border border-[#e5d8c8] bg-[#fffaf3] py-3 pl-11 pr-11 text-sm text-[#2b2118] outline-none transition placeholder:text-[#a99b8e] focus:border-[#7a1f2b] focus:ring-2 focus:ring-[#7a1f2b]/10"
                 />
@@ -134,7 +151,10 @@ function Designs() {
                 return (
                   <button
                     key={category}
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => {
+                      setActiveCategory(category);
+                      setCurrentPage(1);
+                    }}
                     className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
                       active
                         ? "bg-[#7a1f2b] text-white shadow-md shadow-[#7a1f2b]/20"
@@ -179,7 +199,7 @@ function Designs() {
                 layout
                 className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
               >
-                {filteredDesigns.map((design, index) => (
+                {paginatedDesigns.map((design, index) => (
                   <motion.article
                     key={design.id}
                     layout
@@ -297,6 +317,64 @@ function Designs() {
                   View All Designs
                 </button>
               </motion.div>
+            )}
+
+            {totalPages > 1 && (
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+                {/* Previous */}
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
+                    currentPage === 1
+                      ? "cursor-not-allowed bg-[#f1e8de] text-[#b7aa9d]"
+                      : "bg-[#7a1f2b] text-white hover:bg-[#641824]"
+                  }`}
+                >
+                  Previous
+                </button>
+
+                {/* Page Numbers */}
+                {Array.from(
+                  { length: totalPages },
+                  (_, index) => index + 1,
+                ).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => {
+                      setCurrentPage(page);
+                      window.scrollTo({
+                        top: 500,
+                        behavior: "smooth",
+                      });
+                    }}
+                    className={`h-10 min-w-10 rounded-xl px-3 text-sm font-bold transition ${
+                      currentPage === page
+                        ? "bg-[#d4af37] text-[#2b2118] shadow-md"
+                        : "bg-white text-[#66584d] border border-[#eadfce] hover:bg-[#f7efe3]"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
+
+                {/* Next */}
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition ${
+                    currentPage === totalPages
+                      ? "cursor-not-allowed bg-[#f1e8de] text-[#b7aa9d]"
+                      : "bg-[#7a1f2b] text-white hover:bg-[#641824]"
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
             )}
           </AnimatePresence>
         </div>
