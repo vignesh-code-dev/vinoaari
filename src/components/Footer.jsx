@@ -154,7 +154,7 @@ function Footer() {
                 <Mail size={18} className="mt-0.5 shrink-0 text-[#d4af37]" />
 
                 <span className="break-all">
-                  varahi.infotechnology@gmail.com
+                  vinoaariwork@gmail.com
                 </span>
               </a>
 
